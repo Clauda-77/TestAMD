@@ -28,6 +28,7 @@ class ZekraAdminPanelProvider extends PanelProvider
             ->id('zekra_admin')
             ->path('zekra_admin')
             ->login()
+            ->passwordReset()
             ->brandName('مبادرة التاجر الملتزم')
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('8rem') 
