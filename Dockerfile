@@ -37,7 +37,7 @@
 
 
 
-FROM php:8.2-fpm
+ FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
     nginx \
@@ -49,9 +49,6 @@ RUN apt-get update && apt-get install -y \
 COPY . /var/www/html
 
 WORKDIR /var/www/html
-
-# تثبيت الحزم الإضافية
-RUN composer require bezhan-salleh/filament-language-switch
 
 RUN npm install && npm run build
 
