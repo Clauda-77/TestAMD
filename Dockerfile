@@ -96,7 +96,6 @@ WORKDIR /var/www/html
 # تثبيت حزم Node وبناء الملفات
 RUN npm install && npm run build
 
-# إعداد Nginx
 RUN echo "server {" > /etc/nginx/sites-available/default \
     && echo "    listen 80;" >> /etc/nginx/sites-available/default \
     && echo "    server_name _;" >> /etc/nginx/sites-available/default \
@@ -109,7 +108,28 @@ RUN echo "server {" > /etc/nginx/sites-available/default \
     && echo "        include snippets/fastcgi-php.conf;" >> /etc/nginx/sites-available/default \
     && echo "        fastcgi_pass 127.0.0.1:9000;" >> /etc/nginx/sites-available/default \
     && echo "    }" >> /etc/nginx/sites-available/default \
+    && echo "    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$ {" >> /etc/nginx/sites-available/default \
+    && echo "        expires max;" >> /etc/nginx/sites-available/default \
+    && echo "        log_not_found off;" >> /etc/nginx/sites-available/default \
+    && echo "        access_log off;" >> /etc/nginx/sites-available/default \
+    && echo "        add_header Cache-Control \"public, immutable\";" >> /etc/nginx/sites-available/default \
+    && echo "    }" >> /etc/nginx/sites-available/default \
     && echo "}" >> /etc/nginx/sites-available/default
+    
+# # إعداد Nginx
+# RUN echo "server {" > /etc/nginx/sites-available/default \
+#     && echo "    listen 80;" >> /etc/nginx/sites-available/default \
+#     && echo "    server_name _;" >> /etc/nginx/sites-available/default \
+#     && echo "    root /var/www/html/public;" >> /etc/nginx/sites-available/default \
+#     && echo "    index index.php;" >> /etc/nginx/sites-available/default \
+#     && echo "    location / {" >> /etc/nginx/sites-available/default \
+#     && echo "        try_files \$uri \$uri/ /index.php?\$query_string;" >> /etc/nginx/sites-available/default \
+#     && echo "    }" >> /etc/nginx/sites-available/default \
+#     && echo "    location ~ \.php\$ {" >> /etc/nginx/sites-available/default \
+#     && echo "        include snippets/fastcgi-php.conf;" >> /etc/nginx/sites-available/default \
+#     && echo "        fastcgi_pass 127.0.0.1:9000;" >> /etc/nginx/sites-available/default \
+#     && echo "    }" >> /etc/nginx/sites-available/default \
+#     && echo "}" >> /etc/nginx/sites-available/default
 
 # ✅ إصلاح الصلاحيات (هذا هو الجزء الأهم)
 # منح ملكية المجلدات لمستخدم www-data
