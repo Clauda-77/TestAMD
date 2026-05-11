@@ -190,7 +190,7 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 # أوامر مسح الكاش
 RUN php artisan route:clear
 RUN php artisan config:clear
-RUN php artisan view:clear
+# RUN php artisan view:clear
 RUN php artisan cache:clear
 
 # تشغيل الخدمات
