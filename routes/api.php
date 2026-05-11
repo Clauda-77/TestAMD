@@ -9,9 +9,11 @@ use App\Http\Controllers\Api\StoreController;
 | API Routes
 |--------------------------------------------------------------------------
 */
-
+Route::get('/locations', function() {
+    return response()->json(['message' => 'Locations route is hit!']);
+});
 // 1. مسارات البيانات الأولية (تستخدم عند تشغيل التطبيق)
-Route::get('/locations', [StoreController::class, 'getLocations']);
+// Route::get('/locations', [StoreController::class, 'getLocations']);
 Route::get('/business-types', [StoreController::class, 'getBusinessTypes']);
 
 // 2. مسارات التجار والمحلات
